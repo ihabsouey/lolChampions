@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ChampionsService } from '../../services/champions.service';
+import { ColDef } from 'ag-grid-community';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-quartz.css';
+
+interface IRow {
+  name: string;
+  title: string;
+}
 
 @Component({
   selector: 'app-champions-list',
@@ -8,6 +16,7 @@ import { ChampionsService } from '../../services/champions.service';
 })
 export class ChampionsListComponent implements OnInit {
   champions: any[] = [];
+  championsData: any[] = []; // The transformed data for AG-Grid
 
   constructor(private championService: ChampionsService) {}
 
@@ -19,6 +28,10 @@ export class ChampionsListComponent implements OnInit {
     this.championService.getChampions().subscribe(
       (champions) => {
         this.champions = champions;
+        this.championsData = this.champions.map((champion) => ({
+          name: champion.name,
+          title: champion.title,
+        }));
         console.log('Champions chargés:', this.champions);
       },
       (error) => {
@@ -29,4 +42,13 @@ export class ChampionsListComponent implements OnInit {
       }
     );
   }
+  colDefs: ColDef<IRow>[] = [
+    { field: 'name' },
+    { field: 'title' },
+    // { field: 'location' },
+    // { field: 'date' },
+    // { field: 'price' },
+    // { field: 'successful' },
+    // { field: 'rocket' },
+  ];
 }

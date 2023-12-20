@@ -1,9 +1,13 @@
 <!-- champion-list.component.html -->
 
-<div>
-    <h2>Liste des Champions</h2>
-    <div *ngFor="let champion of champions">
-      <p>{{ champion.name }} - {{ champion.title }}</p>
-    </div>
-  </div>
-  
+<div style="width: 100vw">
+  <h2>Liste des Champions</h2>
+
+  <ag-grid-angular
+    class="ag-theme-quartz"
+    style="height: 500px; width: 100%"
+    [rowData]="championsData"
+    [columnDefs]="colDefs"
+  >
+  </ag-grid-angular>
+</div>
