@@ -10,11 +10,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ChampionsModule } from './champions/champions.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    AgGridModule,
     AppRoutingModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
     HttpClientModule,
