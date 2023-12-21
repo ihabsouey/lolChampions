@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChampionsService {
-  private apiUrl = 'api/champions';  // Assurez-vous que cela correspond à l'URL configurée dans votre in-memory-web-api
+  private apiUrl = 'api/champions';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
   getChampions(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }

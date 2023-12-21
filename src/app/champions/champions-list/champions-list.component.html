@@ -1,13 +1,17 @@
 <!-- champion-list.component.html -->
 
-<div style="width: 100vw">
+<div style="width: 90vw; height: 100vh">
   <h2>Liste des Champions</h2>
 
   <ag-grid-angular
-    class="ag-theme-quartz"
-    style="height: 500px; width: 100%"
+    class="ag-theme-quartz-dark"
+    style="height: 100%; width: 100%"
     [rowData]="championsData"
     [columnDefs]="colDefs"
+    [pagination]="true"
+    [paginationPageSize]="10"
+    [paginationPageSizeSelector]="[10, 20, 50]"
+    [domLayout]="'autoHeight'"
   >
   </ag-grid-angular>
 </div>

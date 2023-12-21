@@ -7,6 +7,7 @@ import 'ag-grid-community/styles/ag-theme-quartz.css';
 interface IRow {
   name: string;
   title: string;
+  title2: string;
 }
 
 @Component({
@@ -45,10 +46,10 @@ export class ChampionsListComponent implements OnInit {
   colDefs: ColDef<IRow>[] = [
     { field: 'name' },
     { field: 'title' },
-    // { field: 'location' },
-    // { field: 'date' },
-    // { field: 'price' },
-    // { field: 'successful' },
-    // { field: 'rocket' },
+    {
+      headerName: 'Actions',
+      cellRenderer: 'deleteButtonRenderer', // Custom renderer for the delete button
+      width: 100, // Adjust the width as needed
+    },
   ];
 }
