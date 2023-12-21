@@ -3,11 +3,11 @@ import { ChampionsService } from '../../services/champions.service';
 import { ColDef } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 interface IRow {
   name: string;
   title: string;
-  title2: string;
 }
 
 @Component({
@@ -19,12 +19,41 @@ export class ChampionsListComponent implements OnInit {
   champions: any[] = [];
   championsData: any[] = []; // The transformed data for AG-Grid
 
-  constructor(private championService: ChampionsService) {}
+  searchForm: FormGroup = this.fb.group({
+    searchQuery: [''],
+  });
+
+  constructor(
+    private championService: ChampionsService,
+    private fb: FormBuilder // Inject FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.getChampions();
+    this.initializeSearchForm();
+  }
+  initializeSearchForm(): void {
+    this.searchForm = this.fb.group({
+      searchQuery: [''], // Add any additional form controls as needed
+    });
   }
 
+  filterByNameOrTitle(): void {
+    console.log('searchQuery:', this.searchForm.get('searchQuery')?.value);
+    const searchQuery = this.searchForm.get('searchQuery')?.value.toLowerCase();
+
+    this.championsData = this.champions
+      .filter((champion) => {
+        return (
+          champion.name.toLowerCase().includes(searchQuery) ||
+          champion.title.toLowerCase().includes(searchQuery)
+        );
+      })
+      .map((champion) => ({
+        name: champion.name,
+        title: champion.title,
+      }));
+  }
   getChampions(): void {
     this.championService.getChampions().subscribe(
       (champions) => {
@@ -43,13 +72,5 @@ export class ChampionsListComponent implements OnInit {
       }
     );
   }
-  colDefs: ColDef<IRow>[] = [
-    { field: 'name' },
-    { field: 'title' },
-    {
-      headerName: 'Actions',
-      cellRenderer: 'deleteButtonRenderer', // Custom renderer for the delete button
-      width: 100, // Adjust the width as needed
-    },
-  ];
+  colDefs: ColDef<IRow>[] = [{ field: 'name' }, { field: 'title' }];
 }

@@ -1,8 +1,14 @@
-<!-- champion-list.component.html -->
-
-<div style="width: 90vw; height: 100vh">
+<div style="width: fit-content; height: 100vh">
   <h2>Liste des Champions</h2>
-
+  <form [formGroup]="searchForm">
+    <label for="searchQuery">Search:</label>
+    <input
+      type="text"
+      id="searchQuery"
+      formControlName="searchQuery"
+      (keyup)="filterByNameOrTitle()"
+    />
+  </form>
   <ag-grid-angular
     class="ag-theme-quartz-dark"
     style="height: 100%; width: 100%"
@@ -10,7 +16,7 @@
     [columnDefs]="colDefs"
     [pagination]="true"
     [paginationPageSize]="10"
-    [paginationPageSizeSelector]="[10, 20, 50]"
+    [paginationPageSizeSelector]="[10, 20, 30]"
     [domLayout]="'autoHeight'"
   >
   </ag-grid-angular>
