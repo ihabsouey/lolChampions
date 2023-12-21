@@ -1,27 +1,78 @@
-<div style="width: fit-content; height: 100vh">
-  <div style="margin-bottom: 10px">
-    <button (click)="onBtnEpxort()">Export CSV</button>
-  </div>
-  <h2>Liste des Champions</h2>
-  <form [formGroup]="searchForm">
-    <label for="searchQuery">Search:</label>
-    <input
-      type="text"
-      id="searchQuery"
-      formControlName="searchQuery"
-      (keyup)="filterByNameOrTitle()"
-    />
-  </form>
-  <ag-grid-angular
-    class="ag-theme-quartz-dark"
-    style="height: 100%; width: 100%"
-    [rowData]="championsData"
-    [columnDefs]="colDefs"
-    [pagination]="true"
-    [paginationPageSize]="10"
-    [paginationPageSizeSelector]="[10, 20, 30]"
-    [domLayout]="'autoHeight'"
-    (gridReady)="onGridReady($event)"
+<div style="background-color: #1f2632">
+  <div
+    class="jumbotron px-5 py-4 text-white d-flex align-items-center"
+    style="background-color: #2b3945"
   >
-  </ag-grid-angular>
+    <img
+      src="../../../assets/LOLIcon.png"
+      alt="icon"
+      class="img-fluid"
+      width="100"
+      height="100"
+    />
+    <h1 style="color: #3fccf3">League Of Legends Hub</h1>
+  </div>
+  <div class="container w-100 my-5 min-vh-100">
+    <div class="row d-flex justify-content-between">
+      <div class="col-12 col-lg-5 text-white">
+        <p class="fs-5 lh-base">
+          Welcome to League Legends Hub, your one-stop destination for exploring
+          League of Legends champions.
+          <br />
+          <br />Dive into the world of League of Legends and get insights into
+          your favorite champions. Whether you're a newcomer or a seasoned
+          player, League Legends Hub is here to guide you through the exciting
+          realm of champions in League of Legends.
+        </p>
+        <img
+          src="../../../assets/LolBanner.png"
+          alt="banner"
+          class="img-fluid mt-4"
+        />
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="row mb-3">
+          <div class="col-5">
+            <form [formGroup]="searchForm">
+              <input
+                type="text"
+                class="form-control bg-dark text-white border-secondary"
+                id="searchQuery"
+                formControlName="searchQuery"
+                (keyup)="filterByNameOrTitle()"
+                placeholder="Search by name or title"
+              />
+            </form>
+          </div>
+          <div class="col d-flex justify-content-end">
+            <button
+              color="primary"
+              (click)="onBtnEpxort()"
+              class="btn btn-secondary"
+            >
+              <i class="bi bi-download"></i>
+            </button>
+          </div>
+        </div>
+        <ag-grid-angular
+          class="ag-theme-quartz-dark fs-6 text-capitalize"
+          style="height: 100%; width: 100%"
+          [rowData]="championsData"
+          [columnDefs]="colDefs"
+          [pagination]="true"
+          [paginationPageSize]="10"
+          [paginationPageSizeSelector]="[10, 15, 20]"
+          [domLayout]="'autoHeight'"
+          (gridReady)="onGridReady($event)"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer mt-auto py-3" style="background-color: #424f5b">
+    <div class="container text-center text-white">
+      <p>&copy; 2023 League Of Legends Hub. All rights reserved.</p>
+    </div>
+  </footer>
 </div>

@@ -9,6 +9,7 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 import { HttpClientModule } from '@angular/common/http';
 
 import { ChampionsModule } from './champions/champions.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { ChampionsModule } from './champions/champions.module';
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService),
     HttpClientModule,
     ChampionsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
