@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChampionsService } from '../../services/champions.service';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -18,6 +18,7 @@ interface IRow {
 export class ChampionsListComponent implements OnInit {
   champions: any[] = [];
   championsData: any[] = []; // The transformed data for AG-Grid
+  private gridApi!: GridApi;
 
   searchForm: FormGroup = this.fb.group({
     searchQuery: [''],
@@ -72,5 +73,14 @@ export class ChampionsListComponent implements OnInit {
       }
     );
   }
-  colDefs: ColDef<IRow>[] = [{ field: 'name' }, { field: 'title' }];
+  colDefs: ColDef<IRow>[] = [{ field: 'name' }, { field: 'title' }, {}];
+  onBtnEpxort() {
+    const params = {
+      fileName: 'champions_data',
+    };
+    this.gridApi.exportDataAsCsv(params);
+  }
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+  }
 }
